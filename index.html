@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكوادرا تيوب - منصة الفيديو المتكاملة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Cairo', sans-serif;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c7c7c7;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+      
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+      
+      .sidebar-item:hover svg {
+        transform: scale(1.1);
+      }
+      
+      .video-card:hover .thumbnail-overlay {
+        opacity: 1;
+      }
+      
+      .video-card:hover .video-image {
+        transform: scale(1.05);
+      }
+
+      /* Animation for Mobile Sidebar */
+      .sidebar-enter {
+        transform: translateX(0);
+      }
+      .sidebar-exit {
+        transform: translateX(100%);
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-gray-200 px-4 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <button id="menu-btn" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            <a href="#" class="flex items-center gap-1 group">
+                <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-red-500 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-gray-800 group-hover:text-red-600 transition-colors">أكوادرا<span class="text-red-600">تيوب</span></span>
+            </a>
+        </div>
+
+        <div class="hidden md:flex flex-1 max-w-2xl mx-4">
+            <div class="flex w-full">
+                <input type="text" placeholder="بحث" class="w-full px-4 py-2 border border-gray-300 rounded-r-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-gray-50">
+                <button class="px-6 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-l-full hover:bg-gray-200 transition-colors">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </div>
+            <button class="mr-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200">
+                <svg class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.66 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <button class="p-2 hover:bg-gray-100 rounded-full hidden sm:block">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </button>
+            <button class="p-2 hover:bg-gray-100 rounded-full hidden sm:block relative">
+                <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+            </button>
+            <button class="ml-2 w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-indigo-600 flex items-center justify-center text-white text-sm font-bold shadow-md hover:shadow-lg transition-all">
+                A
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex pt-16 min-h-screen">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-64 fixed h-full bg-white border-l border-gray-200 transform transition-transform duration-300 overflow-y-auto pb-20 z-40 hidden lg:block">
+            <div class="p-3 space-y-1">
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition-colors font-semibold">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                    <span>الرئيسية</span>
+                </a>
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Shorts</span>
+                </a>
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <span>الاشتراكات</span>
+                </a>
+            </div>
+            <hr class="my-2 border-gray-200">
+            <div class="p-3 space-y-1">
+                <h3 class="px-3 py-2 text-sm font-semibold text-gray-500">أنت</h3>
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>السجل</span>
+                </a>
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>فيديوهاتك</span>
+                </a>
+                <a href="#" class="sidebar-item flex items-center gap-4 px-3 py-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>المشاهدة لاحقاً</span>
+                </a>
+            </div>
+            <hr class="my-2 border-gray-200">
+             <div class="p-4 text-xs text-gray-500">
+                <p>© 2024 أكوادرا Inc.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:mr-64 w-full">
+            
+            <!-- Categories -->
+            <div class="sticky top-16 bg-white/95 backdrop-blur z-30 px-4 py-3 border-b border-gray-100 flex gap-3 overflow-x-auto whitespace-nowrap hide-scrollbar">
+                <button class="px-4 py-1.5 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">الكل</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">ألعاب الفيديو</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">موسيقى</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">مباشر</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">برمجة</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">ذكاء اصطناعي</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">أكوادرا</button>
+                <button class="px-4 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">جديد لك</button>
+            </div>
+
+            <!-- PRESERVED CONTENT: Welcome Card Section -->
+            <!-- Originally focused in center, now integrated as a Featured Section -->
+            <div class="px-6 py-6">
+                 <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6 border border-indigo-100 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-right max-w-lg">
+                        <h1 class="text-2xl font-bold text-slate-800 mb-2 tracking-tight">مرحباً بك في أكوادرا</h1>
+                        <p class="text-gray-600 mb-4">
+                            المنشئ الخارق الذي يساعدك على بناء تطبيقات جميلة باستخدام Tailwind CSS.
+                        </p>
+                        <div class="text-sm text-gray-400 mb-2">
+                            مدعوم بواسطة Gemini 3 Pro
+                        </div>
+                    </div>
+                    
+                    <!-- The Original Card with functionality preserved -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 hover:scale-105 transition-all duration-300 cursor-pointer card group w-full md:w-auto min-w-[250px] text-center">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-100 transition-colors">
+                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">جاهز للبناء</h2>
+                        <p class="text-gray-500 text-sm">اطلب من الذكاء الاصطناعي تغيير هذا التصميم أو بناء شيء جديد كلياً.</p>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- Video Grid -->
+            <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-6 pb-12">
+                <!-- Videos will be injected here by JS -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-backdrop" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity duration-300 opacity-0"></div>
+    
+    <!-- Video Player Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center bg-black/90 backdrop-blur-sm transition-all duration-300 opacity-0">
+        <div class="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300">
+             <div class="relative aspect-video bg-black group">
+                 <div class="absolute inset-0 flex items-center justify-center">
+                      <button id="play-overlay-btn" class="w-20 h-20 bg-red-600/90 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform cursor-pointer">
+                          <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                      </button>
+                 </div>
+                 <img id="modal-thumbnail" src="" class="w-full h-full object-cover opacity-60" alt="Video">
+                 <div class="absolute top-4 right-4">
+                     <button id="close-modal" class="p-2 bg-black/50 rounded-full text-white hover:bg-black/70 transition-colors">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                     </button>
+                 </div>
+             </div>
+             <div class="p-6">
+                 <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white mb-2">عنوان الفيديو</h2>
+                 <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
+                     <div class="flex items-center gap-3">
+                         <img id="modal-avatar" src="" class="w-10 h-10 rounded-full object-cover" alt="Channel">
+                         <div>
+                             <h3 id="modal-channel" class="font-semibold text-gray-800 dark:text-gray-200">اسم القناة</h3>
+                             <p class="text-xs text-gray-500">1.2M مشترك</p>
+                         </div>
+                         <button class="mr-4 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium rounded-full hover:opacity-90 transition-opacity">اشترك</button>
+                     </div>
+                     <div class="flex items-center gap-2">
+                         <button class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714.211 1.412.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path></svg>
+                             <span id="modal-views">10K</span>
+                         </button>
+                         <button class="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                             <span>مشاركة</span>
+                         </button>
+                     </div>
+                 </div>
+                 <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                     <p class="text-sm text-gray-600 dark:text-gray-300">
+                         <span class="font-bold">15 ألف مشاهدة • قبل 5 ساعات</span>
+                         <br>
+                         هذا وصف توضيحي للفيديو يعرض التفاصيل المهمة والروابط التي قد يحتاجها المشاهد. استمتع بالمشاهدة ولا تنسى الاشتراك في القناة ليصلك كل جديد.
+                     </p>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
